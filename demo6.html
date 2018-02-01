@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        .loading {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 100;
+            background: #fff;
+        }
+
+        .pic {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            left: 0;
+            right:0;
+            bottom:0;
+            top: 0;
+            margin:auto;
+            font-size:20px;
+            line-height:100px;
+            text-align: center;
+        }
+        span{
+            display:block;
+            width:80px;
+            height:80px;
+            position: absolute;
+            top:10px;
+            left:10px;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+            -webkit-box-shadow: 0 3px 0 #666;
+            -moz-box-shadow: 0 3px 0 #666;
+            box-shadow: 0 3px 0 #666;
+            -webkit-animation:rotate 1s infinite linear;
+            animation:rotate 1s infinite linear;
+        }
+        @-webkit-keyframes rotate{
+            0%{
+                transform:rotate(0deg);
+                -webkit-transform:rotate(0deg);
+            }
+            100%{
+                transform:rotate(360deg);
+                -webkit-transform:rotate(360deg);
+            }
+        }
+        @keyframes rotate{
+            0%{
+                transform:rotate(0deg);
+            }
+            100%{
+                transform:rotate(360deg);
+            }
+        }
+    </style>
+    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+        $(function () {
+            var img=$("img");
+            var num=0;
+            img.each(function (i) {
+                var oImg=new Image();
+                oImg.onload=function () {
+                    oImg.onload=null;   //避免图片多次请求
+                    num++;
+                    $(".loading b").html(parseInt(num/$('img').size()*100)+'%');  //加载进度数字变化
+                    if(num>=i){
+                        $(".loading").fadeOut();
+                    }
+                }
+                oImg.src=img[i].src;   //写在onload后面解决ie浏览器缓存问题
+            })
+        })
+    </script>
+</head>
+<body>
+<div class="loading">
+    <div class="pic">
+        <span></span>
+        <b>0%</b>
+    </div>
+</div>
+
+<img src="http://f.hiphotos.baidu.com/image/pic/item/503d269759ee3d6db032f61b48166d224e4ade6e.jpg" alt=""/>
+<img src="http://a.hiphotos.baidu.com/image/pic/item/500fd9f9d72a6059f550a1832334349b023bbae3.jpg" alt=""/>
+<img src="http://g.hiphotos.baidu.com/image/pic/item/c8ea15ce36d3d539f09733493187e950342ab095.jpg" alt=""/>
+<img src="http://b.hiphotos.baidu.com/image/pic/item/6609c93d70cf3bc7de138c26da00baa1cc112aec.jpg" alt=""/>
+<img src="http://e.hiphotos.baidu.com/image/pic/item/48540923dd54564eb6c7a5f3b8de9c82d0584f5d.jpg" alt=""/>
+
+</body>
+</html>
